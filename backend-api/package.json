@@ -1,0 +1,23 @@
+{
+  "name": "bug-manager",
+  "version": "1.0.0",
+  "description": "a bug management system",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "test": "npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vijaygomathinayagam/bug-manager.git"
+  },
+  "author": "Vijay. G",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/vijaygomathinayagam/bug-manager/issues"
+  },
+  "homepage": "https://github.com/vijaygomathinayagam/bug-manager#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
