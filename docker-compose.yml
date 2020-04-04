@@ -3,7 +3,7 @@ services:
   nginx:
     build: .
     ports:
-      "9000:80"
+      - "9000:80"
   backend:
     build: ./backend-api/.
     container_name: "bugmanager_backend"
