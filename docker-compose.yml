@@ -7,3 +7,5 @@ services:
   backend:
     build: ./backend-api/.
     container_name: "bugmanager_backend"
+    environment:
+      - ./env/backend.env

@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/vijaygomathinayagam/bug-manager#readme",
   "dependencies": {
+    "axios": "^0.19.2",
     "express": "^4.17.1"
   }
 }
