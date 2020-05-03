@@ -1,0 +1,5 @@
+FROM nginx
+
+COPY --from=bug-manager_frontend /app/build /var/www/html
+
+COPY ./nginx/nginx.conf /etc/nginx/conf.d/default.conf

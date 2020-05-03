@@ -5,6 +5,7 @@
   "main": "src/index.js",
   "scripts": {
     "start": "node src/index.js",
+    "start-dev": "NODE_ENV=development node src/index.js",
     "test": "npm test"
   },
   "repository": {
@@ -19,6 +20,13 @@
   "homepage": "https://github.com/vijaygomathinayagam/bug-manager#readme",
   "dependencies": {
     "axios": "^0.19.2",
-    "express": "^4.17.1"
+    "cookie-parser": "^1.4.5",
+    "express": "^4.17.1",
+    "randomstring": "^1.1.5",
+    "redis": "^3.0.2",
+    "util": "^0.12.2"
+  },
+  "devDependencies": {
+    "dotenv": "^8.2.0"
   }
 }
