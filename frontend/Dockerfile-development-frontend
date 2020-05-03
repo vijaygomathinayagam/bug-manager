@@ -1,0 +1,14 @@
+# react build
+FROM node
+
+WORKDIR /app
+
+COPY ./package*.json ./
+
+RUN npm cache verify
+
+RUN npm ci
+
+COPY . .
+
+RUN npm run build

@@ -1,0 +1,33 @@
+.login-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
+.login-title {
+    margin-top: 40px;
+}
+
+.signin-button,
+.singin-loading-message {
+    margin-top: 20px;
+}
+
+.signin-button {
+    height: 48px;
+    width: 190px;
+    background-image: url('/images/btn_google_signin_dark_normal_web.png');
+    background-color: transparent;
+    border: 0;
+    background-repeat: no-repeat;
+}
+
+.signin-button:focus {
+    background-image: url('/images/btn_google_signin_dark_focus_web.png');
+}
+
+.signin-button:active {
+    background-image: url('/images/btn_google_signin_dark_pressed_web.png');
+}

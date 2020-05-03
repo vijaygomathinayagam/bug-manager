@@ -7,8 +7,10 @@ services:
     build: ./backend-api/.
     container_name: "bugmanager_backend"
     env_file: ./backend-api/.env
-  frontend:
-    build: .
-    container_name: "bugmanager_frontend"
+  nginx:
+    build: 
+      context: .
+      dockerfile: Dockerfile-development-nginx
+    container_name: "bugmanager_nginx"
     ports:
       - "9000:80"

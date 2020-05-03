@@ -1,1 +1,1 @@
-module.exports = require('./authentication'); 
+module.exports = { ...require('./authentication'), ...require('./session') };
