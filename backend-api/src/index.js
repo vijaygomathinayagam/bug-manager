@@ -14,6 +14,4 @@ app.use(cookieParser());
 
 app.use('/api', require('./_routes').apiRouter);
 
-console.log('printing redis host');
-console.log(process.env.Redis_Host);
 app.listen('8080', () => console.log('server started. Listening at 8080'));

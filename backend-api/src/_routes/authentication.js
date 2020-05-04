@@ -1,8 +1,4 @@
 const { getLoginURL, authenticateGoogleUser } = require('../user');
-const { 
-    App_Home_URL,
-    App_Login_URL
-} = require('../_common');
 
 module.exports = (apiRouter) => {
     apiRouter.get('/login-url', async (req, res) => {
@@ -15,8 +11,6 @@ module.exports = (apiRouter) => {
         const postMessageData = {};
         if (isSuccess) {
             res.cookie('bgu', sessionKey, { maxAge: 24 * 60 * 60 * 1000, httpOnly: true });
-        } else {
-            res.redirect(App_Login_URL);
         }
         postMessageData.isLoginSuccess = isSuccess;
         res.set('Content-Type', 'text/html');

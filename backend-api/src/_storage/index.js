@@ -1,3 +1,6 @@
 module.exports = {
-    redisClient: require('./redis')
+    redisClient: require('./redis'),
+    mongo: {
+        bug: require('./entities/bug')
+    }
 }

@@ -3,6 +3,11 @@ services:
   redis:
     image: redis
     container_name: "bugmanager_storage_redis"
+  mongo:
+    image: mongo
+    container_name: "bugmanager_storage_mongo"
+    volumes:
+      - db-data:/data/db
   backend:
     build: ./backend-api/.
     container_name: "bugmanager_backend"
