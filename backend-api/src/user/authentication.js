@@ -4,7 +4,7 @@ const {
     GoogleOauthScopes,
     Google_AccessToken_URL,
     Google_UserInfo_URL
-} = require('../_common');
+} = require('../_common').configurations;
 const { createSession } = require('./session');
 
 module.exports.getLoginURL = async () => {

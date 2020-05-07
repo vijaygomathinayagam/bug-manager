@@ -1,1 +1,4 @@
-module.exports = require('./configuration');
+module.exports = {
+    configurations: require('./configurations'),
+    constants: require('./constants'),
+};

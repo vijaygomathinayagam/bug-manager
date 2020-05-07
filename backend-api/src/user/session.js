@@ -2,7 +2,7 @@ const fs = require('fs');
 const path = require('path');
 const randomstring = require("randomstring");
 
-const redisClient = require('../_storage').redisClient;
+const redisClient = require('../_storage').storage.redisClient;
 const emailSessionKeyMapping = 'emailSessionKeyMapping';
 const sessionKeyEmailMapping = 'sessionKeyEmailMapping';
 
@@ -37,7 +37,13 @@ const createSession = async (userEmail) => {
     };
 };
 
+const isSessionValid = async (sessionKey) => {
+    const value = redisClient.hgetAsync(sessionKeyEmailMapping, sessionKey);
+    return value != null;
+};
+
 module.exports = {
     deleteSession,
-    createSession
+    createSession,
+    isSessionValid,
 };

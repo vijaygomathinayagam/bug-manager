@@ -1,6 +1,6 @@
-module.exports = {
-    redisClient: require('./redis'),
-    mongo: {
-        bug: require('./entities/bug')
-    }
-}
+module.exports.initStorage = async () => {
+    module.exports.storage = {
+        redisClient: await require('./redis')(),
+        mongo: await require('./mongo')(),
+    };
+};

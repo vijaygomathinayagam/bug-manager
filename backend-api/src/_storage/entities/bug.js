@@ -1,7 +1,5 @@
-const mongoose = require('../mongo');
+const mongoose = require("mongoose");
 
-const bug = mongoose.model('bug', {
-    name: String
+module.exports = new mongoose.Schema({
+  name: String,
 });
-
-module.exports = bug;

@@ -1,4 +1,5 @@
 const { getLoginURL, authenticateGoogleUser } = require('../user');
+const { authenticationCookieName } = require('../_common').constants;
 
 module.exports = (apiRouter) => {
     apiRouter.get('/login-url', async (req, res) => {
@@ -10,7 +11,7 @@ module.exports = (apiRouter) => {
         const { isSuccess, sessionKey } = await authenticateGoogleUser(req.query.code);
         const postMessageData = {};
         if (isSuccess) {
-            res.cookie('bgu', sessionKey, { maxAge: 24 * 60 * 60 * 1000, httpOnly: true });
+            res.cookie(authenticationCookieName, sessionKey, { maxAge: 24 * 60 * 60 * 1000, httpOnly: true });
         }
         postMessageData.isLoginSuccess = isSuccess;
         res.set('Content-Type', 'text/html');
