@@ -4,10 +4,15 @@ const {
     GoogleOauthScopes,
     Google_AccessToken_URL,
     Google_UserInfo_URL
-} = require('../_common').configurations;
-const { createSession } = require('./session');
+} = require('../common').constants;
 
-module.exports.getLoginURL = async () => {
+const allowedUsersList = require('../../resources/allowed_users');
+
+const isAllowedUser = async (userEmail) => {
+    return allowedUsersList.includes(userEmail);
+}
+
+const getLoginURL = async () => {
     const loginURL = new URL(GoogleOauthURL);
 
     // params
@@ -23,7 +28,7 @@ module.exports.getLoginURL = async () => {
     return loginURL.toString();    
 }
 
-const getGoogleAccessToken = async (code) => {
+const _getGoogleAccessToken = async (code) => {
     const accessTokenParams = new URLSearchParams();
     accessTokenParams.append('client_id', process.env.Google_Client_ID);
     accessTokenParams.append('client_secret', process.env.Google_Client_Secret);
@@ -41,7 +46,7 @@ const getGoogleAccessToken = async (code) => {
     });
 };
 
-const getUserInfo = async (accessToken) => {
+const _getUserInfo = async (accessToken) => {
     return await axios({
         url: Google_UserInfo_URL,
         method: 'get',
@@ -51,26 +56,28 @@ const getUserInfo = async (accessToken) => {
     });
 };
 
-module.exports.authenticateGoogleUser = async (code) => {
+const authenticateGoogleUser = async (code) => {
     try {
         // getting access token
-        const { data: accessTokenReponse } = await getGoogleAccessToken(code);
-
-        // getting user info
-        const { data: userInfoResponse } = await getUserInfo(accessTokenReponse.access_token);
-
-        // create user session
-        const { email } =  userInfoResponse;
-        const { sessionKey, sessionKeyStatus } = await createSession(userInfoResponse.email);
-        
-        if(sessionKeyStatus) {
+        const { status: accessTokenStatus, data: accessTokenReponse } = await _getGoogleAccessToken(code);
+        if (accessTokenStatus !== 200) {
             return {
-                isSuccess: true,
-                sessionKey: sessionKey
-            }
-        } else {
-            throw new Error(`${email} is not an allowed user`);
+                isSuccess: false,
+            };
         }
+        
+        // getting user info
+        const { status: userInfoStatus, data: { email: userEmail } } = await _getUserInfo(accessTokenReponse.access_token);
+        if(userInfoStatus !== 200) {
+            return {
+                isSuccess: false,
+            };
+        }
+        
+        return {
+            isSuccess: true,
+            userEmail: userEmail,
+        };
     } catch(err) {
         console.log(err);
         return {
@@ -78,3 +85,9 @@ module.exports.authenticateGoogleUser = async (code) => {
         };
     }
 }
+
+module.exports = {
+    isAllowedUser,
+    getLoginURL,
+    authenticateGoogleUser
+};
