@@ -1,5 +1,4 @@
 const sinon = require('sinon');
-const assert = require('assert');
 const session = require('../../../src/storages/session');
 const sessionCheckMiddleWares = require('../../../src/middlewares/session-check');
 const { authenticationCookieName } = require('../../../src/common').constants;
@@ -29,9 +28,9 @@ describe("session-check middlewares", async function() {
                 cookies: {}
             };
             await sessionCheckMiddleWares.validSessionMiddleware(expressReq, expressRes, expressNext);
+            sinon.assert.notCalled(isSessionValidStub);
             sinon.assert.calledWith(expressRes.sendStatus, 401);
             sinon.assert.notCalled(expressNext);
-            sinon.assert.notCalled(isSessionValidStub);
         });
 
         it("if authentication cookie is provided is invalid, it should return 401", async function() {

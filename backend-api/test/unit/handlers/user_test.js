@@ -1,7 +1,6 @@
 const sinon = require('sinon');
-const assert = require('assert');
 const userEntity = require('../../../src/entities/user');
-const { getLoginURLHandler, authenticateGoogleUserHander } = require('../../../src/handlers/user');
+const { getLoginURLHandler } = require('../../../src/handlers/user');
 
 describe("user handlers", async function() {
 

@@ -1,31 +1,39 @@
 const sinon = require('sinon');
 const assert = require('assert');
 const { bugModal, getAllBugs } = require('../../../src/entities/bug');
+const {
+    getFakeValidBugObj,
+    getFakeInvalidBugObjEmpty,
+    getFakeInvalidBugObjOnlyBugID,
+    getFakeInvalidBugObjOnlyTitle,
+} = require('../data-factories/bug');
 
 describe("bug entity methods", async function() {
 
     describe("bug model", async function() {
 
         it("bug modal should return error validating invalid data", function() {
-            const invalidBugObj = new bugModal();
-            const error = invalidBugObj.validateSync();
+            let error = getFakeInvalidBugObjEmpty().validateSync();
             assert.notEqual(error.errors.title, undefined);
+            assert.notEqual(error.errors.bugID, undefined);
+
+            error = getFakeInvalidBugObjOnlyBugID().validateSync();
+            assert.notEqual(error.errors.title, undefined);
+            
+            error = getFakeInvalidBugObjOnlyTitle().validateSync();
             assert.notEqual(error.errors.bugID, undefined);
         });
 
         it("bug modal should not return error validating valid data", function() {
-            const validBugObj = new bugModal();
-            validBugObj.title = 'sample bug title';
-            validBugObj.bugID = '12345';
-            const error = validBugObj.validateSync();
+            const error = getFakeValidBugObj().validateSync();
             assert.equal(error, undefined);
-        })
+        });
 
     });
 
     describe("getAllBugs method", async function() {
 
-        beforeEach(function() {
+        before(function() {
             sinon.stub(bugModal, 'find');
         });
 
@@ -34,7 +42,7 @@ describe("bug entity methods", async function() {
             sinon.assert.calledWith(bugModal.find, {});
         });
 
-        afterEach(function() {
+        after(function() {
             bugModal.find.restore();
         });
     })

@@ -7,7 +7,7 @@ const { bugCollectionName } = require('../common').constants;
     required: true,
   },
   bugID: {
-    type: Number,
+    type: String,
     required: true,
   },
 });
