@@ -1,18 +1,12 @@
-const userEntity = require('../entities/user');
+const userEntity = require('../../entities/user');
+const { authenticationCookieName } = require('../../constants').api;
 const {
-    authenticationCookieName,
     ErrorCodeLoginAPIAuthenticationFailed,
     ErrorCodeLoginAPIUserNotAllowed,
- } = require('../common').constants;
- const sessionStorage = require('../storages/session');
+ } = require('../../constants').messageCode;
+ const sessionStorage = require('../../common/session');
  
-const getLoginURLHandler = async (req, res) => {
-    res.json({
-        url: await userEntity.getLoginURL(),
-    });
-};
-
-const authenticateGoogleUserHander = async (req, res) => {
+module.exports = async (req, res) => {
     const { isSuccess, userEmail } = await userEntity.authenticateGoogleUser(req.query.code);
     const postMessageData = {};
 
@@ -37,9 +31,3 @@ const authenticateGoogleUserHander = async (req, res) => {
         window.opener.postMessage(${JSON.stringify(postMessageData)}, '${process.env.Server_Host}');
         </script>`);
 };
-
-module.exports = {
-    getLoginURLHandler,
-    authenticateGoogleUserHander,
-};
-

@@ -1,8 +1,8 @@
 const sinon = require('sinon');
-const bugEntity = require('../../../src/entities/bug');
-const { getAllBugsHandler } = require('../../../src/handlers/bug');
+const bugEntity = require('../../../../src/entities/bug');
+const { getAllBugsHandler } = require('../../../../src/handlers/bug');
 
-const { getFakeValidBugObj } = require('../data-factories/bug');
+const { getFakeValidBugObj } = require('../../data-factories/bug');
 
 describe("bug handlers", async function() {
 

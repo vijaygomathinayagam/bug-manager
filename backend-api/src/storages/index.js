@@ -1,6 +1,9 @@
-module.exports.initStorage = async () => {
-    module.exports.storage = {
-        redisClient: await require('./redis')(),
-        mongo: await require('./mongo')(),
-    };
-};
+const storage = {};
+
+module.exports = {
+    initStorage: async () => {
+        storage.redisClient = await require('./redis')();
+        storage.mongo = await require('./mongo')();
+    },
+    storage: storage
+}

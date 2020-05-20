@@ -1,32 +1,8 @@
 const axios = require('axios');
 const { 
-    GoogleOauthURL,
-    GoogleOauthScopes,
     Google_AccessToken_URL,
     Google_UserInfo_URL
-} = require('../common').constants;
-
-const allowedUsersList = require('../../resources/allowed_users');
-
-const isAllowedUser = async (userEmail) => {
-    return allowedUsersList.includes(userEmail);
-}
-
-const getLoginURL = async () => {
-    const loginURL = new URL(GoogleOauthURL);
-
-    // params
-    const params = new URLSearchParams();
-    params.append('client_id', process.env.Google_Client_ID);
-    params.append('redirect_uri', process.env.Google_Redirect_URI);
-    params.append('scope', GoogleOauthScopes);
-    params.append('response_type', 'code');
-    params.append('access_type', 'offline');
-    params.append('prompt', 'consent');
-    loginURL.search = params.toString();
-
-    return loginURL.toString();    
-}
+} = require('../../constants').googleOAuth;
 
 const _getGoogleAccessToken = async (code) => {
     const accessTokenParams = new URLSearchParams();
@@ -56,7 +32,7 @@ const _getUserInfo = async (accessToken) => {
     });
 };
 
-const authenticateGoogleUser = async (code) => {
+module.exports = async (code) => {
     try {
         // getting access token
         const { status: accessTokenStatus, data: accessTokenReponse } = await _getGoogleAccessToken(code);
@@ -85,9 +61,3 @@ const authenticateGoogleUser = async (code) => {
         };
     }
 }
-
-module.exports = {
-    isAllowedUser,
-    getLoginURL,
-    authenticateGoogleUser
-};

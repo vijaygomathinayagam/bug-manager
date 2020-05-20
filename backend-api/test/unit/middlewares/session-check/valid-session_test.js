@@ -1,7 +1,7 @@
 const sinon = require('sinon');
-const session = require('../../../src/storages/session');
-const sessionCheckMiddleWares = require('../../../src/middlewares/session-check');
-const { authenticationCookieName } = require('../../../src/common').constants;
+const session = require('../../../../src/common/session');
+const sessionCheckMiddleWares = require('../../../../src/middlewares/session-check');
+const { authenticationCookieName } = require('../../../../src/constants').api;
 
 describe("session-check middlewares", async function() {
 
