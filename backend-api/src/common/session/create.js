@@ -1,16 +1,17 @@
 const randomstring = require("randomstring");
-const { redisClient } = require('../../storages').storage;
+const storage = require('../../storages').storage;
 const {
     RedisSessionKeyValueMapping,
-    RedisSessionValueKeyMapping
+    RedisSessionValueKeyMapping,
+    RedisSessionValueLength
 } = require('../../constants').storageRedis;
-const { deleteSession } = require('./delete');
+const deleteSessionObj = require('./delete');
 
 // also used as refesh
 module.exports.createSession = async (sessionKey) => {
-    await deleteSession(sessionKey);
-    const sessionValue = randomstring.generate(7);
-    await redisClient.hsetAsync(RedisSessionKeyValueMapping, sessionKey, sessionValue);
-    await redisClient.hsetAsync(RedisSessionValueKeyMapping, sessionValue, sessionKey);
+    await deleteSessionObj.deleteSession(sessionKey);
+    const sessionValue = randomstring.generate(RedisSessionValueLength);
+    await storage.redisClient.hsetAsync(RedisSessionKeyValueMapping, sessionKey, sessionValue);
+    await storage.redisClient.hsetAsync(RedisSessionValueKeyMapping, sessionValue, sessionKey);
     return sessionValue;
 };
