@@ -1,12 +1,18 @@
 const userEntity = require('../../entities/user');
-const { authenticationCookieName } = require('../../constants').api;
+const htmlTemplateParser = require('../../common/html-template-parser');
+const sessionStorage = require('../../common/session');
 const {
     ErrorCodeLoginAPIAuthenticationFailed,
     ErrorCodeLoginAPIUserNotAllowed,
+    SuccessCodeLoginAPILoginSuccess
  } = require('../../constants').messageCode;
- const sessionStorage = require('../../common/session');
+ const {
+    authenticationCookieName,
+    athenticatePostmessageScript,
+    authenticationCookieMaxAge
+} = require('../../constants').api;
  
-module.exports = async (req, res) => {
+module.exports.authenticateGoogleUserHandler = async (req, res) => {
     const { isSuccess, userEmail } = await userEntity.authenticateGoogleUser(req.query.code);
     const postMessageData = {};
 
@@ -14,20 +20,22 @@ module.exports = async (req, res) => {
         // create user session
         if(userEntity.isAllowedUser(userEmail)) {
             const sessionKey = await sessionStorage.createSession(userEmail);
-            res.cookie(authenticationCookieName, sessionKey, { maxAge: 24 * 60 * 60 * 1000, httpOnly: true });
+            res.cookie(authenticationCookieName, sessionKey, { maxAge: authenticationCookieMaxAge, httpOnly: true });
+            postMessageData.messageCode = SuccessCodeLoginAPILoginSuccess;
+            postMessageData.isLoginSuccess = true;
         } else {
             console.error(`${userEmail} is not an allowed user`);
-            postMessageData.errorCode = ErrorCodeLoginAPIUserNotAllowed;
+            postMessageData.messageCode = ErrorCodeLoginAPIUserNotAllowed;
+            postMessageData.isLoginSuccess = false;
         }
     } else {
-        postMessageData.errorCode = ErrorCodeLoginAPIAuthenticationFailed;
+        postMessageData.messageCode = ErrorCodeLoginAPIAuthenticationFailed;
+        postMessageData.isLoginSuccess = false;
     }
 
-    // sending login status
-    postMessageData.isLoginSuccess = isSuccess;
-
     res.set('Content-Type', 'text/html');
-    res.send(`<script>
-        window.opener.postMessage(${JSON.stringify(postMessageData)}, '${process.env.Server_Host}');
-        </script>`);
+    res.send(htmlTemplateParser.parseHTMLTemplate(athenticatePostmessageScript, {
+        postMessageJSON: JSON.stringify(postMessageData),
+        host: process.env.Server_Host
+    }));
 };

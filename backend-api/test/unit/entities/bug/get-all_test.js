@@ -1,36 +1,28 @@
 const sinon = require('sinon');
-const { bugModal, getAllBugs } = require('../../../../src/entities/bug');
+const { bugModel } = require('../../../../src/entities/bug/modal');
 
 describe("getAllBugs method", async function() {
 
     let selectStub, sortStub, limitStub;
-    let filter;
 
     before(async function() {
-        sinon.stub(bugModal, 'find').callsFake(() => ({
+        sinon.stub(bugModel, 'find').callsFake(() => ({
             limit: limitStub,
         }));
-        const selectStub = sinon.stub();
-        const sortStub = sinon.stub().callsFake(() => ({
+        selectStub = sinon.stub();
+        sortStub = sinon.stub().callsFake(() => ({
             select: selectStub,
         }));
-        const limitStub = sinon.stub().callsFake(() => ({
+        limitStub = sinon.stub().callsFake(() => ({
             sort: sortStub,
         }));
-        filter = {
-            assignedTo: ['testuser@gmail.com']
-        };
-        {
-            $or: [{
-                assignedTo: 'testuser@gmail.com'
-            }]
-        }
-
-        await getAllBugs(filter);
+        
+        const { getAllBugs } = require('../../../../src/entities/bug'); 
+        await getAllBugs();
     });
 
     it("getAllBugs should call find with empty object", async function() {
-        sinon.assert.calledWith(bugModal.find, filter);
+        sinon.assert.calledWith(bugModel.find, {});
     });
 
     it("getAllBugs should call limit with 10", async function() {
@@ -46,6 +38,6 @@ describe("getAllBugs method", async function() {
     });
 
     after(function() {
-        bugModal.find.restore();
+        bugModel.find.restore();
     });
 });

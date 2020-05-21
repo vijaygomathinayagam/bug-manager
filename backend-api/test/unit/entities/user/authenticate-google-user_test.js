@@ -1,4 +1,4 @@
-const { getLoginURL, authenticateGoogleUser } = require('../../../../src/entities/user');
+const { authenticateGoogleUser } = require('../../../../src/entities/user');
 const assert = require('assert');
 const { 
     Google_AccessToken_URL,

@@ -1,7 +1,7 @@
-const { bugModal } = require('./modal');
+const { bugModel } = require('./modal');
 
 module.exports = async () => {
-  return await bugModal
+  return await bugModel
     .find({})
     .limit(10)
     .sort({ createdAt: -1 })
