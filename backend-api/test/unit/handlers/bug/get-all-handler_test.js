@@ -7,7 +7,7 @@ const { getFakeValidBugObj } = require('../../data-factories/bug');
 describe("bug handlers", async function() {
 
     describe("getAllBugsHandler method", async function() {
-        const getAllBugsReturnValue = [getFakeValidBugObj()];
+        const getAllBugsReturnValue = { bugs: [getFakeValidBugObj()], totalCount: 1 };
         let getAllBugsStub;
 
         before(function() {
