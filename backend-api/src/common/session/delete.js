@@ -6,8 +6,8 @@ const {
 
 module.exports.deleteSession = async (sessionKey) => {
     const sessionValue = await redisClient.hgetAsync(RedisSessionKeyValueMapping, sessionKey);
-    await redisClient.hdelAsync(RedisSessionKeyValueMapping, sessionValue);
-    if (sessionValue) {
+    if (sessionValue != null) {
+        await redisClient.hdelAsync(RedisSessionKeyValueMapping, sessionKey);
         await redisClient.hdelAsync(RedisSessionValueKeyMapping, sessionValue);
     }
 };
