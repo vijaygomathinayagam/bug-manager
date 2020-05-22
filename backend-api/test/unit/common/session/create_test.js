@@ -22,6 +22,8 @@ describe("createSession method", async function() {
         };
         deleteSessionStub = sinon.stub(deleteSessionObj, 'deleteSession');
         generateStub = sinon.stub(randomstring, 'generate').withArgs(RedisSessionValueLength).returns(fakeSessionValue);
+
+        delete require.cache[require.resolve('../../../../src/common/session/create')];
     });
     
     it("generate a random string and save to redis storage", async function() {
