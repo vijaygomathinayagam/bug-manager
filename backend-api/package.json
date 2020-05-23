@@ -6,8 +6,7 @@
   "scripts": {
     "start": "node src/app.js",
     "start-dev": "NODE_ENV=development node src/app.js",
-    "unit-test": "mocha test/unit/**/*_test.js",
-    "integration-test": "node src/_test/integration-test.js"
+    "unit-test": "mocha test/**/*_test.js"
   },
   "repository": {
     "type": "git",

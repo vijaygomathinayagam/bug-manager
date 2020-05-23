@@ -12,24 +12,32 @@ const _getGoogleAccessToken = async (code) => {
     accessTokenParams.append('grant_type', 'authorization_code');
     accessTokenParams.append('code', code);
     
-    return await axios({
-        url: Google_AccessToken_URL,
-        method: 'post',
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded'
-        },
-        data: accessTokenParams.toString(),
-    });
+    try {
+        return await axios({
+            url: Google_AccessToken_URL,
+            method: 'post',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            data: accessTokenParams.toString(),
+        });
+    } catch(err) {
+        return err.response;
+    }
 };
 
 const _getUserInfo = async (accessToken) => {
-    return await axios({
-        url: Google_UserInfo_URL,
-        method: 'get',
-        headers: {
-            Authorization: `Bearer ${accessToken}`
-        }
-    });
+    try {
+        return await axios({
+            url: Google_UserInfo_URL,
+            method: 'get',
+            headers: {
+                Authorization: `Bearer ${accessToken}`
+            }
+        });
+    } catch(err) {
+        return err.response;
+    }
 };
 
 module.exports = async (code) => {
@@ -37,6 +45,7 @@ module.exports = async (code) => {
         // getting access token
         const { status: accessTokenStatus, data: accessTokenReponse } = await _getGoogleAccessToken(code);
         if (accessTokenStatus !== 200) {
+            console.error('Authenticate google user, getting access token, status: ', status, ' data:', data);
             return {
                 isSuccess: false,
             };
@@ -45,6 +54,7 @@ module.exports = async (code) => {
         // getting user info
         const { status: userInfoStatus, data: { email: userEmail } } = await _getUserInfo(accessTokenReponse.access_token);
         if(userInfoStatus !== 200) {
+            console.error('Authenticate google user status, getting user info: ', status, ' data:', data);
             return {
                 isSuccess: false,
             };

@@ -1,4 +1,4 @@
 module.exports = {
-    bugModal: require('./modal').bugModel,
+    bugModel: require('./modal').bugModel,
     getAllBugs: require('./get-all')
 }

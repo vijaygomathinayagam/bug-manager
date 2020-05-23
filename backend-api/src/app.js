@@ -1,8 +1,6 @@
-const express = require('express');
-const app = express();
-const cookieParser = require('cookie-parser');
-
 const initServer = async () => {
+    const { addExitHandler } = require('./exit-handler');
+
     // initializing env variables
     if(process.env.NODE_ENV==='development') {
         require('dotenv').config({
@@ -10,16 +8,14 @@ const initServer = async () => {
         });
     }
     // initializing storage
-    await require('./_storage').initStorage();
+    const storage = require('./_storage');
+    await storage.initStorage();
+    addExitHandler(async () => await storage.closeConnections());
     
-    // starting express server
-    app.use(express.json());
-    app.use(express.urlencoded({ extended: true }));
-
-    app.use(cookieParser());
-    
-    app.use('/api', require('./_routes').apiRouter);
-    app.listen('8080', () => console.log('server started. Listening at 8080'));
+    // configuring and listening to server
+    const app = require('./server')();
+    const server = app.listen('8080', () => console.log('server started. Listening at 8080'));
+    addExitHandler(async () => await server.close());
 };
 
 try {
