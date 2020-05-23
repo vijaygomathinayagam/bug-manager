@@ -1,5 +1,6 @@
 const bugEntity = require('../../entities/bug');
 
 module.exports = async (req, res) => {
-    res.json(await bugEntity.getAllBugs());
+    const filter = JSON.parse(req.query.filter);
+    res.json(await bugEntity.getAllBugs(filter));
 };

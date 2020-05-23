@@ -1,5 +1,3 @@
-process.stdin.resume();
-
 let exitHandlers = [];
 let isExistHandlersCalled = false;
 
@@ -22,7 +20,7 @@ process.on('SIGUSR1', handleExit);
 process.on('SIGUSR2', handleExit);
 
 //catches uncaught exceptions
-//process.on('uncaughtException', );
+process.on('uncaughtException', exp => console.log('uncaught exception: ', exp));
 
 module.exports.addExitHandler = (exitHandler) => {
     exitHandlers.push(exitHandler);

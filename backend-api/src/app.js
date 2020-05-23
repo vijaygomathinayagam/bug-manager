@@ -8,7 +8,7 @@ const initServer = async () => {
         });
     }
     // initializing storage
-    const storage = require('./_storage');
+    const storage = require('./storages');
     await storage.initStorage();
     addExitHandler(async () => await storage.closeConnections());
     

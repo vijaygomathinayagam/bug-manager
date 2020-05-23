@@ -17,12 +17,20 @@ describe("bug handlers", async function() {
         });
 
         it("it should call the entity method and return the value from entity method", async function() {
+            const filter = {
+                assignedTo: 'testuser@gmail.com',
+            };
+            const expressReq = {
+                query: {
+                    filter: JSON.stringify(filter),
+                }
+            };
             const expressRes = {
                 json: sinon.stub(),
             };
-            const expressReq = {};
+
             await getAllBugsHandler(expressReq, expressRes);
-            sinon.assert.calledOnce(getAllBugsStub);
+            sinon.assert.calledWith(getAllBugsStub, filter);
             sinon.assert.calledWith(expressRes.json, getAllBugsReturnValue);
         });
 
