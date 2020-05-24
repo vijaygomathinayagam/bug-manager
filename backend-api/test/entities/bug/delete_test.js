@@ -7,7 +7,7 @@ describe("deleteBug method", async function() {
 
     let deleteManyStub;
 
-    before(function() {
+    beforeEach(function() {
         deleteManyStub = sinon.stub(bugModel, 'deleteMany');
         delete require.cache[require.resolve('../../../src/entities/bug/delete')];
     });
@@ -20,7 +20,7 @@ describe("deleteBug method", async function() {
         assert.deepEqual(actualReturnValue, expectedReturnValue);
     });
 
-    after(function() {
+    afterEach(function() {
         bugModel.deleteMany.restore();
     });
 });
