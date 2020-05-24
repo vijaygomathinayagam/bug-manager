@@ -3,10 +3,15 @@ const { authenticationCookieName } = require('../../constants').api;
 
 module.exports = async (req, res, next) => {
     const cookies = req.cookies;
-    if(cookies[authenticationCookieName] 
-        && await session.isSessionValid(cookies[authenticationCookieName])) {
+
+    if(cookies[authenticationCookieName]) {
+        const sessionValueExistsStatus = await session.isSessionValid(cookies[authenticationCookieName]);
+
+        if(sessionValueExistsStatus.exists) {
+            req.locals = { userEmail: sessionValueExistsStatus.sessionKey };
             next();
-    } else {
-        res.sendStatus(401);
+            return;
+        }
     }
+    res.sendStatus(401);
 };

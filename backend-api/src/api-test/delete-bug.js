@@ -24,7 +24,7 @@ run(async () => {
 
     const { deleteBugHandler } = require('../handlers/bug');
     const expressReq = {
-        query: {
+        params: {
             bugID: fakeBugID,
         }
     };

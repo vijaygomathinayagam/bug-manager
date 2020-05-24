@@ -4,6 +4,12 @@ const {
 } = require('../../constants').storageRedis;
 
 module.exports.isSessionValid = async (sessionValue) => {
-    const value = redisClient.hgetAsync(RedisSessionValueKeyMapping, sessionValue);
-    return value != null;
+    const sessionKey = redisClient.hgetAsync(RedisSessionValueKeyMapping, sessionValue);
+    if(sessionKey != null) {
+        return {
+            exists: true,
+            sessionKey: sessionKey,
+        };
+    }
+    return { exists: false };
 };

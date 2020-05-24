@@ -1,4 +1,5 @@
 const sinon = require('sinon');
+const assert = require('assert');
 const session = require('../../../src/common/session');
 const sessionCheckMiddleWares = require('../../../src/middlewares/session-check');
 const { authenticationCookieName } = require('../../../src/constants').api;
@@ -8,11 +9,12 @@ describe("session-check middlewares", async function() {
     describe("validSessionMiddleware method", async function() {
 
         const validSessionValue = 'validSessionValue';
+        const fakeSessionKey = 'testuser@gmail.com';
         let expressRes, expressNext, isSessionValidStub;
 
         before(function() {
             isSessionValidStub = sinon.stub(session, 'isSessionValid').callsFake(async (sessionValue) => {
-                return (validSessionValue === sessionValue);
+                return { exists: (validSessionValue === sessionValue), sessionKey: fakeSessionKey };
             });
         });
 
@@ -48,18 +50,19 @@ describe("session-check middlewares", async function() {
             sinon.assert.notCalled(expressNext);
         });
 
-        it("if authentication cookie is provided is valid, it should call next", async function() {
+        it("if authentication cookie is provided is valid, it should call next and store session key in express req locals", async function() {
             const cookies = {};
             cookies[authenticationCookieName] = validSessionValue;
             const passedSessionValue = validSessionValue;
 
             const expressReq = {
-                cookies: cookies
+                cookies: cookies,
             };
             await sessionCheckMiddleWares.validSessionMiddleware(expressReq, expressRes, expressNext);
             sinon.assert.calledWith(isSessionValidStub, passedSessionValue);
             sinon.assert.notCalled(expressRes.sendStatus);
             sinon.assert.calledOnce(expressNext);
+            assert.deepEqual(expressReq.locals, { userEmail: fakeSessionKey });
         });
 
         afterEach(function() {

@@ -1,4 +1,4 @@
-const { bugModel } = require('./modal');
+const { bugModel } = require('./model');
 
 module.exports = async (filter) => {
   const bugsArr = await bugModel

@@ -1,6 +1,6 @@
 const sinon = require('sinon');
 const assert = require('assert');
-const { bugModel } = require('../../../src/entities/bug/modal');
+const { bugModel } = require('../../../src/entities/bug/model');
 const { getFakeValidBugObj } = require('../../_factories/data/bug');
 
 describe("getAllBugs method", async function() {

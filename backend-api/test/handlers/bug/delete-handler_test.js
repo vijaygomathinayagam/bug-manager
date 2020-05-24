@@ -15,7 +15,7 @@ describe("deleteBugHandler method", async function() {
 
     it("should call bug entity method and return its value", async function() {
         const expressReq = {
-            query: {
+            params: {
                 bugID: fakeBugID,
             }
         };
