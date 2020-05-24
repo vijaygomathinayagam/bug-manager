@@ -9,10 +9,9 @@ describe("isSessionValid method", async function() {
 
     const fakeExistsSessionValue = 'fakeExistsSessionValue';
     const fakeNotExistsSessionValue = 'fakeNotExistSessionValue';
+    const fakeSessionKey = 'fakeSessionKey';
     
     before(function() {
-        const fakeSessionKey = 'fakeSessionKey';
-
         const hGetAsyncStub = sinon.stub();
         hGetAsyncStub.withArgs(RedisSessionValueKeyMapping, fakeExistsSessionValue).returns(fakeSessionKey);
         hGetAsyncStub.withArgs(RedisSessionValueKeyMapping, fakeNotExistsSessionValue).returns(null);
@@ -27,17 +26,17 @@ describe("isSessionValid method", async function() {
     it("for existing session value it should return true", async function() {
         const { isSessionValid } = require('../../../src/common/session/is-valid');
         const actualIsValidSession = await isSessionValid(fakeExistsSessionValue);
-        const expectedIsValidSession = true;
+        const expectedIsValidSession = { exists: true, sessionKey: fakeSessionKey };
         sinon.assert.calledWith(storage.redisClient.hgetAsync.getCall(0), RedisSessionValueKeyMapping, fakeExistsSessionValue);
-        assert.equal(actualIsValidSession, expectedIsValidSession);
+        assert.deepEqual(actualIsValidSession, expectedIsValidSession);
     });
 
     it("for non existing session value it should return false", async function() {
         const { isSessionValid } = require('../../../src/common/session/is-valid');
         const actualIsValidSession = await isSessionValid(fakeNotExistsSessionValue);
-        const expectedIsValidSession = false;
+        const expectedIsValidSession = { exists: false };
         sinon.assert.calledWith(storage.redisClient.hgetAsync.getCall(1), RedisSessionValueKeyMapping, fakeNotExistsSessionValue);
-        assert.equal(actualIsValidSession, expectedIsValidSession);
+        assert.deepEqual(actualIsValidSession, expectedIsValidSession);
     });
 
     after(function() {
