@@ -45,16 +45,18 @@ module.exports = async (code) => {
         // getting access token
         const { status: accessTokenStatus, data: accessTokenReponse } = await _getGoogleAccessToken(code);
         if (accessTokenStatus !== 200) {
-            console.error('Authenticate google user, getting access token, status: ', status, ' data:', data);
+            console.error('Authenticate google user, getting access token, status: ',
+                accessTokenStatus,' data:', accessTokenReponse);
             return {
                 isSuccess: false,
             };
         }
         
         // getting user info
-        const { status: userInfoStatus, data: { email: userEmail } } = await _getUserInfo(accessTokenReponse.access_token);
+        const { status: userInfoStatus, data: userInfoResponse } = await _getUserInfo(accessTokenReponse.access_token);
         if(userInfoStatus !== 200) {
-            console.error('Authenticate google user status, getting user info: ', status, ' data:', data);
+            console.error('Authenticate google user status, getting user info: ',
+                userInfoStatus, ' data:', userInfoResponse);
             return {
                 isSuccess: false,
             };
@@ -62,7 +64,7 @@ module.exports = async (code) => {
         
         return {
             isSuccess: true,
-            userEmail: userEmail,
+            userEmail: userInfoResponse.email,
         };
     } catch(err) {
         console.log(err);
