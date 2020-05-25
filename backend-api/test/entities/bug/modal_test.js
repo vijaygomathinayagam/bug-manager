@@ -1,6 +1,6 @@
 const assert = require('assert');
 const {
-    getFakeValidBugObj,
+    getFakeValidBug,
     getFakeInvalidBugObjEmpty,
 } = require('../../_factories/data/bug');
 
@@ -17,7 +17,7 @@ describe("bug model", async function() {
     });
 
     it("bug modal should not return error validating valid data", function() {
-        const error = getFakeValidBugObj().validateSync();
+        const error = getFakeValidBug().validateSync();
         assert.equal(error, undefined);
     });
 

@@ -1,5 +1,5 @@
 const sinon = require('sinon');
-const { getFakeValidBugObj } = require('../../_factories/data/bug');
+const { getFakeValidBug } = require('../../_factories/data/bug');
 
 describe("createBug method", async function() {
 
@@ -13,7 +13,7 @@ describe("createBug method", async function() {
 
     it("should call bugModel insertMany method with argument bug object", async function() {
         const createBug = require('../../../src/entities/bug/create');
-        const bug = getFakeValidBugObj();
+        const bug = getFakeValidBug();
         await createBug(bug);
         sinon.assert.calledWith(insertManyStub, [ bug ]);
     });

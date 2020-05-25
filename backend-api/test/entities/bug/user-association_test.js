@@ -1,6 +1,6 @@
 const sinon = require('sinon');
 const assert = require('assert');
-const { getFakeValidBugObj } = require('../../_factories/data/bug');
+const { getFakeValidBug } = require('../../_factories/data/bug');
 
 describe("getUserBugAssociation method", async function() {
 
@@ -18,21 +18,21 @@ describe("getUserBugAssociation method", async function() {
     let findStub;
 
     before(function() {
-        const reportedByMeBug = getFakeValidBugObj();
+        const reportedByMeBug = getFakeValidBug();
         reportedByMeBug.bugID = reportedByUserBugID;
         reportedByMeBug.reportedBy = userEmail;
         reportedByMeBug.assignedTo = otherUserEmail;
         
-        const assignedToMeBug = getFakeValidBugObj();
+        const assignedToMeBug = getFakeValidBug();
         assignedToMeBug.bugID = assingedToUserBugID;
         assignedToMeBug.assignedTo = userEmail;
         assignedToMeBug.reportedBy = otherUserEmail;
 
-        const reportedAndAssignedToUserBug = getFakeValidBugObj();
+        const reportedAndAssignedToUserBug = getFakeValidBug();
         reportedAndAssignedToUserBug.bugID = reportedAndAssignedToUserBugID;
         reportedAndAssignedToUserBug.assignedTo = reportedAndAssignedToUserBug.reportedBy = userEmail;
 
-        const otherUserBug = getFakeValidBugObj();
+        const otherUserBug = getFakeValidBug();
         otherUserBug.bugID = otherBugID;
         otherUserBug.assignedTo = otherUserBug.reportedBy = otherUserEmail;
 

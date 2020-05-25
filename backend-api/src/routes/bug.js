@@ -1,5 +1,5 @@
 const { validSessionMiddleware } = require('../middlewares/session-check');
-const { reportedByUserCheckMiddleWare } = require('../middlewares/bug');
+const { reportedByUserCheckMiddleware } = require('../middlewares/bug');
 const {
     getAllBugsHandler,
     getBugHandler,
@@ -9,5 +9,5 @@ const {
 module.exports = (apiRouter) => {
     apiRouter.get('/bugs', validSessionMiddleware, getAllBugsHandler);
     apiRouter.get('/bugs/{:bugID}', validSessionMiddleware, getBugHandler);
-    apiRouter.delete('/bugs/{:bugID}', validSessionMiddleware, reportedByUserCheckMiddleWare, deleteBugHandler);
+    apiRouter.delete('/bugs/{:bugID}', validSessionMiddleware, reportedByUserCheckMiddleware, deleteBugHandler);
 };
