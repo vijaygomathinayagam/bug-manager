@@ -5,7 +5,7 @@ const { setGoogleConfToProcessEnv, clearGoogleConfFromProcessEnv } = require('..
 
 describe("testing google authenticate-google-user method", async function() {
     const fakeCodeForAccessToken = '12345';
-    const fakeUserEmail = 'fakemail@gmail.com';
+    const fakeUserEmail = 'testuser@gmail.com';
     let acessTokenURLNock, userInfoURLNock;
 
     before(function() {

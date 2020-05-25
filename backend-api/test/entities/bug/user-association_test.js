@@ -10,8 +10,8 @@ describe("getUserBugAssociation method", async function() {
     const otherBugID = '45678';
     const invalidBugID = '56789';
     const serverErrorBugID = '67890';
-    const userEmail = 'meuser@gmail.com';
-    const otherUserEmail = 'otheruser@gmail.com';
+    const userEmail = 'testuser1@gmail.com';
+    const otherUserEmail = 'testuser2@gmail.com';
     const otherErrorString = "other error";
     const { bugModel } = require('../../../src/entities/bug/model');
 

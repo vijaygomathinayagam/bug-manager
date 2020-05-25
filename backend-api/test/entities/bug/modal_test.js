@@ -5,7 +5,7 @@ const {
 } = require('../../_factories/data/bug');
 
 describe("bug model", async function() {
-
+    
     it("bug modal should return error validating invalid data", function() {
         let error = getFakeInvalidBugObjEmpty().validateSync();
         assert.notEqual(error.errors.title, undefined);

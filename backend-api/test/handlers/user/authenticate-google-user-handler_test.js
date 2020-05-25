@@ -75,7 +75,7 @@ describe('authenticateGoogleUserHandler method', async function() {
         let authenticateGoogleUserStub, isAllowedUserStub;
         
         beforeEach(function() {
-            const fakeNotAllowedUserEmail = 'notalloweduser@gmail.com';
+            const fakeNotAllowedUserEmail = 'testuser1@gmail.com';
             authenticateGoogleUserStub = sinon.stub(userEntity, 'authenticateGoogleUser').callsFake(async () => {
                 return {
                     isSuccess: true,
@@ -115,7 +115,7 @@ describe('authenticateGoogleUserHandler method', async function() {
         let authenticateGoogleUserStub, isAllowedUserStub;
         let createSessionStub;
         const fakeSessionValue = 'fakeSessionValue';
-        const fakeAllowedUserEmail = 'alloweduser@gmail.com';
+        const fakeAllowedUserEmail = 'testuser2@gmail.com';
         
         beforeEach(function() {
             authenticateGoogleUserStub = sinon.stub(userEntity, 'authenticateGoogleUser').callsFake(async () => {
