@@ -1,4 +1,5 @@
 const sinon = require('sinon');
+const assert = require('assert');
 const { getFakeValidBugObject } = require('../../_factories/data/bug');
 
 describe("validBugCheckMiddleware method", async function() {
@@ -12,6 +13,7 @@ describe("validBugCheckMiddleware method", async function() {
     beforeEach(function() {
         expresReq = {
             body: {},
+            locals: {}
         };
         expressRes = {
             sendStatus: sinon.stub(),
@@ -24,6 +26,7 @@ describe("validBugCheckMiddleware method", async function() {
         expresReq.body = validBugObject;
         const validBugCheckMiddleware = require('../../../src/middlewares/bug/is-valid-bug');
         await validBugCheckMiddleware(expresReq, expressRes, expressNext);
+        assert(expresReq.locals.bug instanceof bugModel);
         sinon.assert.called(expressNext);
         sinon.assert.notCalled(expressRes.sendStatus);
     });
