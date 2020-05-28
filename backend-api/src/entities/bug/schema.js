@@ -1,5 +1,11 @@
 const mongoose = require("mongoose");
 
+const { isAllowedUser } = require('../user');
+
+const emailValidatorFunction = function(email) {
+  return isAllowedUser(email);
+};
+
 module.exports = new mongoose.Schema({
   title: {
     type: String,
@@ -41,8 +47,18 @@ module.exports = new mongoose.Schema({
   reportedBy: {
     type: String,
     required: true,
+    validate: {
+      validator: emailValidatorFunction,
+      message: props => `${props.value} is not an allowed user email`
+    },
   },
   assignedTo: {
     type: String,
+    validate: {
+      validator: function(email) {
+        return !email || emailValidatorFunction(email);
+      },
+      message: props => `${props.value} is not an allowed user email`
+    }
   }
 });

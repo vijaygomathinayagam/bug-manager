@@ -1,14 +1,18 @@
 const { bugModel } = require('../../../src/entities/bug');
 
-const getFakeValidBugObj = () => {
-    const fakeBug = new bugModel();
-    fakeBug.title = 'Customers title spelling is wrong in customer list page';
-    fakeBug.bugID = '12345';
-    fakeBug.actualBehaviour = 'title is displaying as "Costomers"';
-    fakeBug.expectedBehaviour = 'title should be "Customers"';
-    fakeBug.stepsToReproduce = '1. Login\n2. Click customers nav link';
-    fakeBug.reportedBy = 'testuser@gmail.com';
-    return fakeBug;
+const getFakeValidBugObject = () => {
+    const fakeBugObject = {};
+    fakeBugObject.title = 'Customers title spelling is wrong in customer list page';
+    fakeBugObject.bugID = '12345';
+    fakeBugObject.actualBehaviour = 'title is displaying as "Costomers"';
+    fakeBugObject.expectedBehaviour = 'title should be "Customers"';
+    fakeBugObject.stepsToReproduce = '1. Login\n2. Click customers nav link';
+    fakeBugObject.reportedBy = 'testuser@gmail.com';
+    return fakeBugObject;
+};
+
+const getFakeValidBug = () => {
+    return bugModel.getBugFromObject(getFakeValidBugObject());
 };
 
 const getFakeInvalidBugObjEmpty = () => {
@@ -18,6 +22,7 @@ const getFakeInvalidBugObjEmpty = () => {
 
 
 module.exports = {
-    getFakeValidBugObj,
+    getFakeValidBugObject,
+    getFakeValidBug,
     getFakeInvalidBugObjEmpty
 };

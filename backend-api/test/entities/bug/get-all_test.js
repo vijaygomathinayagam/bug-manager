@@ -1,7 +1,7 @@
 const sinon = require('sinon');
 const assert = require('assert');
 const { bugModel } = require('../../../src/entities/bug/model');
-const { getFakeValidBugObj } = require('../../_factories/data/bug');
+const { getFakeValidBug } = require('../../_factories/data/bug');
 
 describe("getAllBugs method", async function() {
 
@@ -26,7 +26,7 @@ describe("getAllBugs method", async function() {
         const filter = {
             'assignedTo': 'testuser@gmail.com'
         };
-        const bugsArr = Array(10).fill(getFakeValidBugObj());
+        const bugsArr = Array(10).fill(getFakeValidBug());
         const expectedResonse = {
             bugs: bugsArr,
             totalCount: fakeDocumentCount,

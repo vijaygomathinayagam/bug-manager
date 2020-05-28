@@ -1,6 +1,6 @@
 const sinon = require('sinon');
 const assert = require('assert');
-const { getFakeValidBugObj } = require('../../_factories/data/bug');
+const { getFakeValidBug } = require('../../_factories/data/bug');
 
 describe("getUserBugAssociation method", async function() {
 
@@ -10,29 +10,29 @@ describe("getUserBugAssociation method", async function() {
     const otherBugID = '45678';
     const invalidBugID = '56789';
     const serverErrorBugID = '67890';
-    const userEmail = 'meuser@gmail.com';
-    const otherUserEmail = 'otheruser@gmail.com';
+    const userEmail = 'testuser1@gmail.com';
+    const otherUserEmail = 'testuser2@gmail.com';
     const otherErrorString = "other error";
     const { bugModel } = require('../../../src/entities/bug/model');
 
     let findStub;
 
     before(function() {
-        const reportedByMeBug = getFakeValidBugObj();
+        const reportedByMeBug = getFakeValidBug();
         reportedByMeBug.bugID = reportedByUserBugID;
         reportedByMeBug.reportedBy = userEmail;
         reportedByMeBug.assignedTo = otherUserEmail;
         
-        const assignedToMeBug = getFakeValidBugObj();
+        const assignedToMeBug = getFakeValidBug();
         assignedToMeBug.bugID = assingedToUserBugID;
         assignedToMeBug.assignedTo = userEmail;
         assignedToMeBug.reportedBy = otherUserEmail;
 
-        const reportedAndAssignedToUserBug = getFakeValidBugObj();
+        const reportedAndAssignedToUserBug = getFakeValidBug();
         reportedAndAssignedToUserBug.bugID = reportedAndAssignedToUserBugID;
         reportedAndAssignedToUserBug.assignedTo = reportedAndAssignedToUserBug.reportedBy = userEmail;
 
-        const otherUserBug = getFakeValidBugObj();
+        const otherUserBug = getFakeValidBug();
         otherUserBug.bugID = otherBugID;
         otherUserBug.assignedTo = otherUserBug.reportedBy = otherUserEmail;
 

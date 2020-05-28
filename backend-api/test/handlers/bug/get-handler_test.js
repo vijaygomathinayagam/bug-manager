@@ -1,11 +1,11 @@
 const sinon = require('sinon');
-const { getFakeValidBugObj } = require('../../_factories/data/bug');
+const { getFakeValidBug } = require('../../_factories/data/bug');
 
 describe("getBugHandler method", async function() {
 
     const existsBugID = '12345';
     const notExistsBugID = '23456';
-    const bug = getFakeValidBugObj();
+    const bug = getFakeValidBug();
     const bugEntity = require('../../../src/entities/bug');
 
     let expressReq, expressRes;

@@ -1,6 +1,6 @@
 const sinon = require('sinon');
 const assert = require('assert');
-const { getFakeValidBugObj } = require('../../_factories/data/bug');
+const { getFakeValidBug } = require('../../_factories/data/bug');
 
 describe("getBug method", async function() {
 
@@ -8,7 +8,7 @@ describe("getBug method", async function() {
     const invalidBugID = '23456';
     const serverErrorBugID = '34567';
     const serverErrorName = 'some error';
-    const bug = getFakeValidBugObj();
+    const bug = getFakeValidBug();
     const { bugModel } = require('../../../src/entities/bug/model');
 
     before(function() {

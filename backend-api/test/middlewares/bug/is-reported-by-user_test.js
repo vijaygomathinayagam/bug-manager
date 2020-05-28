@@ -1,6 +1,6 @@
 const sinon = require('sinon');
 
-describe("reportedByUserCheckMiddleWare method", async function() {
+describe("reportedByUserCheckMiddleware method", async function() {
 
     const notExistsBugID = '12345';
     const existsBugID = '23456';

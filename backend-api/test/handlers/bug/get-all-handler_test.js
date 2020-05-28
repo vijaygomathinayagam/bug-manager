@@ -2,12 +2,12 @@ const sinon = require('sinon');
 const bugEntity = require('../../../src/entities/bug');
 const { getAllBugsHandler } = require('../../../src/handlers/bug');
 
-const { getFakeValidBugObj } = require('../../_factories/data/bug');
+const { getFakeValidBug } = require('../../_factories/data/bug');
 
 describe("bug handlers", async function() {
 
     describe("getAllBugsHandler method", async function() {
-        const getAllBugsReturnValue = { bugs: [getFakeValidBugObj()], totalCount: 1 };
+        const getAllBugsReturnValue = { bugs: [getFakeValidBug()], totalCount: 1 };
         let getAllBugsStub;
 
         before(function() {

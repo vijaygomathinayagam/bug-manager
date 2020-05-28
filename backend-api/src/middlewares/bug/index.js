@@ -1,3 +1,4 @@
 module.exports = {
-    reportedByUserCheckMiddleWare: require('./is-reported-by-user')
+    reportedByUserCheckMiddleware: require('./is-reported-by-user'),
+    validBugCheckMiddleware: require('./is-valid-bug')
 };
