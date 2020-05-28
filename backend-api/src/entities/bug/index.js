@@ -5,4 +5,5 @@ module.exports = {
     createBug: require('./create'),
     deleteBug: require('./delete'),
     getUserBugAssociation: require('./user-association').getUserBugAssociation,
+    getUserBugAssociationBugEditableFields: require('./get-editable-fields'),
 }

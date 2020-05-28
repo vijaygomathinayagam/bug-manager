@@ -1,0 +1,14 @@
+{
+    "reportedBy": [
+        "title",
+        "actualBehaviour",
+        "expectedBehaviour",
+        "stepsToReproduce",
+        "devices",
+        "environment",
+        "assignedTo"
+    ],
+    "assignedTo": [
+        "assignedTo"
+    ]
+}
