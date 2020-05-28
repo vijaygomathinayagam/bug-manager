@@ -7,7 +7,8 @@ const {
     getAllBugsHandler,
     getBugHandler,
     createBugHandler,
-    deleteBugHandler
+    deleteBugHandler,
+    getEditableFieldsForUserAssociationsHandler
 } = require('../handlers/bug');
 
 module.exports = (apiRouter) => {
@@ -15,4 +16,5 @@ module.exports = (apiRouter) => {
     apiRouter.get('/bugs/{:bugID}', validSessionMiddleware, getBugHandler);
     apiRouter.post('/bugs', validSessionMiddleware, validBugCheckMiddleware, createBugHandler);
     apiRouter.delete('/bugs/{:bugID}', validSessionMiddleware, reportedByUserCheckMiddleware, deleteBugHandler);
+    apiRouter.get('/user-associations-bug-editable-fields', validSessionMiddleware, getEditableFieldsForUserAssociationsHandler);
 };
