@@ -1,6 +1,4 @@
-const { bugModel } = require('./model');
-
-const getAssociation = (bug, userEmail) => {
+module.exports.getUserBugAssociation = async (bug, userEmail) => {
     const association = {};
     if(userEmail === bug.reportedBy) {
         association.isReportedByUser = true;
@@ -12,21 +10,4 @@ const getAssociation = (bug, userEmail) => {
         association.isOther = true;
     }
     return association;
-};
-
-module.exports.getUserBugAssociation = async (bugID, userEmail) => {
-    try {
-        const bug = await bugModel.find({ bugID: bugID });
-        return {
-            exists: true,
-            association: getAssociation(bug, userEmail),
-        };        
-    } catch(err) {
-        if(err.code === 'MODULE_NOT_FOUND') {
-            return {
-                exists: false
-            };
-        }
-        throw err;
-    }
 };
