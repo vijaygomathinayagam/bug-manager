@@ -1,17 +1,13 @@
 const { getUserBugAssociation } = require('../../entities/bug');
 
 module.exports = async (req, res, next) => {
-    const bugID = req.params.bugID;
     const userEmail = req.locals.userEmail;
-    const userAssociation = await getUserBugAssociation(bugID, userEmail);
+    const bug = req.locals.bug;
+    const userAssociation = await getUserBugAssociation(bug, userEmail);
 
-    if (userAssociation.exists) {
-        if(userAssociation.association.isReportedByUser) {
-            next();
-        } else {
-            res.sendStatus(401);
-        }
+    if(userAssociation.isReportedByUser) {
+        next();
     } else {
-        res.sendStatus(400);
+        res.sendStatus(401);
     }
 };

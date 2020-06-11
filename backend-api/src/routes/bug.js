@@ -13,8 +13,8 @@ const {
 
 module.exports = (apiRouter) => {
     apiRouter.get('/bugs', validSessionMiddleware, getAllBugsHandler);
-    apiRouter.get('/bugs/{:bugID}', validSessionMiddleware, getBugHandler);
+    apiRouter.get('/bugs/{:bugID}', validSessionMiddleware, validBugCheckMiddleware, getBugHandler);
     apiRouter.post('/bugs', validSessionMiddleware, validBugCheckMiddleware, createBugHandler);
-    apiRouter.delete('/bugs/{:bugID}', validSessionMiddleware, reportedByUserCheckMiddleware, deleteBugHandler);
+    apiRouter.delete('/bugs/{:bugID}', validSessionMiddleware, validBugCheckMiddleware, reportedByUserCheckMiddleware, deleteBugHandler);
     apiRouter.get('/user-associations-bug-editable-fields', validSessionMiddleware, getEditableFieldsForUserAssociationsHandler);
 };
