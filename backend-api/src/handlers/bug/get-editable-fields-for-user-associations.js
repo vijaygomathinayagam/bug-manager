@@ -1,5 +1,5 @@
-const { getUserBugAssociationBugEditableFields } = require('../../entities/bug');
+const { getBugEditableFields } = require('../../entities/bug');
 
 module.exports = async (req, res) => {
-    res.json(await getUserBugAssociationBugEditableFields());
+    res.json(await getBugEditableFields());
 };
