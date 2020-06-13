@@ -1,6 +1,6 @@
-const { getFakeValidBug } = require('../../_factories/data/bug');
 const sinon = require('sinon');
 const assert = require('assert');
+const { getFakeValidBug } = require('../../_factories/data/bug');
 
 describe("editBug method", async function() {
 
