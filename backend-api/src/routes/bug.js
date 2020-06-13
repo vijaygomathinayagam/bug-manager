@@ -1,7 +1,8 @@
 const { validSessionMiddleware } = require('../middlewares/session-check');
 const {
     reportedByUserCheckMiddleware,
-    validBugObjectCheckMiddleware
+    validBugObjectCheckMiddleware,
+    validBugIDCheckMiddleware,
 } = require('../middlewares/bug');
 const {
     getAllBugsHandler,
@@ -13,8 +14,8 @@ const {
 
 module.exports = (apiRouter) => {
     apiRouter.get('/bugs', validSessionMiddleware, getAllBugsHandler);
-    apiRouter.get('/bugs/{:bugID}', validSessionMiddleware, validBugObjectCheckMiddleware, getBugHandler);
+    apiRouter.get('/bugs/{:bugID}', validSessionMiddleware, validBugIDCheckMiddleware, getBugHandler);
     apiRouter.post('/bugs', validSessionMiddleware, validBugObjectCheckMiddleware, createBugHandler);
-    apiRouter.delete('/bugs/{:bugID}', validSessionMiddleware, validBugObjectCheckMiddleware, reportedByUserCheckMiddleware, deleteBugHandler);
+    apiRouter.delete('/bugs/{:bugID}', validSessionMiddleware, validBugIDCheckMiddleware, reportedByUserCheckMiddleware, deleteBugHandler);
     apiRouter.get('/user-associations-bug-editable-fields', validSessionMiddleware, getEditableFieldsForUserAssociationsHandler);
 };
