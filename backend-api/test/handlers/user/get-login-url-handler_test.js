@@ -1,10 +1,10 @@
 const sinon = require('sinon');
-const userEntity = require('../../../src/entities/user');
 const { getLoginURLHandler } = require('../../../src/handlers/user');
 
 describe("user handlers", async function() {
 
     describe("getLoginURLHandler method", async function() {
+        const userEntity = require('../../../src/entities/user');
 
         const fakeLoginURL = 'loginURL';
 
