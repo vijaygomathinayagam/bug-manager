@@ -7,14 +7,14 @@ describe("getEditableFieldsForUserAssociationsHandler method", async function() 
         "reportedBy": [ "title" ]
     };
     let expressReq, expressRes;
-    let getUserBugAssociationBugEditableFieldsStub;
+    let getBugEditableFieldsStub;
 
     beforeEach(function() {
         expressReq = {};
         expressRes = {
             json: sinon.stub()
         };
-        getUserBugAssociationBugEditableFieldsStub = sinon.stub(bugEntity, 'getUserBugAssociationBugEditableFields')
+        getBugEditableFieldsStub = sinon.stub(bugEntity, 'getBugEditableFields')
            .resolves(entityReturnValue);
         delete require.cache[require.resolve('../../../src/handlers/bug/get-editable-fields-for-user-associations')];
     });
@@ -22,11 +22,11 @@ describe("getEditableFieldsForUserAssociationsHandler method", async function() 
     it("should call entity method and return its value", async function() {
         const getEditableFieldsForUserAssociationsHandler = require('../../../src/handlers/bug/get-editable-fields-for-user-associations');
         await getEditableFieldsForUserAssociationsHandler(expressReq, expressRes);
-        sinon.assert.called(getUserBugAssociationBugEditableFieldsStub);
+        sinon.assert.called(getBugEditableFieldsStub);
         sinon.assert.calledWith(expressRes.json, entityReturnValue);
     });
 
     afterEach(function() {
-       bugEntity.getUserBugAssociationBugEditableFields.restore();
+       bugEntity.getBugEditableFields.restore();
     });
 });

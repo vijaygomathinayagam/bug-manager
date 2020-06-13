@@ -1,4 +1,4 @@
-module.exports.getUserBugAssociation = async (bug, userEmail) => {
+module.exports = async (bug, userEmail) => {
     const association = {};
     if(userEmail === bug.reportedBy) {
         association.isReportedByUser = true;

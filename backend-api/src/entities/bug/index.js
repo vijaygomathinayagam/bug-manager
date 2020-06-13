@@ -3,7 +3,8 @@ module.exports = {
     getAllBugs: require('./get-all'),
     getBug: require('./get'),
     createBug: require('./create'),
+    editBug: require('./edit'),
     deleteBug: require('./delete'),
-    getUserBugAssociation: require('./user-association').getUserBugAssociation,
-    getUserBugAssociationBugEditableFields: require('./get-editable-fields'),
+    getUserBugAssociation: require('./user-association'),
+    getBugEditableFields: require('./get-editable-fields'),
 }

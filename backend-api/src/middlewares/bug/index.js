@@ -1,4 +1,6 @@
 module.exports = {
     reportedByUserCheckMiddleware: require('./is-reported-by-user'),
-    validBugCheckMiddleware: require('./is-valid-bug')
+    validBugObjectCheckMiddleware: require('./is-valid-bug-object'),
+    validBugIDCheckMiddleware: require('./is-valid-bug-id'),
+    validBugObjectCheckMiddleware: require('./is-valid-bug-object'),
 };

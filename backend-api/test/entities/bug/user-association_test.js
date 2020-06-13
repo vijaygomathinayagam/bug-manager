@@ -1,4 +1,3 @@
-const sinon = require('sinon');
 const assert = require('assert');
 const { getFakeValidBug } = require('../../_factories/data/bug');
 
@@ -36,21 +35,21 @@ describe("getAssociation method", async function() {
     });
 
     it("should return true as isReportedByUser in assocciation when bug is reported by user email", async function() {
-        const { getUserBugAssociation } = require('../../../src/entities/bug/user-association');
+        const getUserBugAssociation = require('../../../src/entities/bug/user-association');
         const actualUserAssociation = await getUserBugAssociation(reportedByMeBug, userEmail);
         const expectedUserAssociation = { isReportedByUser: true };
         assert.deepEqual(actualUserAssociation, expectedUserAssociation);
     });
 
     it("should return true as isAssignedToUser in association when bug is assigned to user email", async function() {
-        const { getUserBugAssociation } = require('../../../src/entities/bug/user-association');
+        const getUserBugAssociation = require('../../../src/entities/bug/user-association');
         const actualUserAssociation = await getUserBugAssociation(assignedToMeBug, userEmail);
         const expectedUserAssociation = { isAssignedToUser: true };
         assert.deepEqual(actualUserAssociation, expectedUserAssociation);
     });
 
     it("should return true as isReportedByUser and isAssignedToUser in association when bug is reported and assignted to user email", async function() {
-        const { getUserBugAssociation } = require('../../../src/entities/bug/user-association');
+        const getUserBugAssociation = require('../../../src/entities/bug/user-association');
         const actualUserAssociation = await getUserBugAssociation(reportedAndAssignedToUserBug, userEmail);
         const expectedUserAssociation = {
             isReportedByUser: true,
@@ -60,7 +59,7 @@ describe("getAssociation method", async function() {
     });
 
     it("should return true as isOther in association when bug is not reported or assigned by user email", async function() {
-        const { getUserBugAssociation } = require('../../../src/entities/bug/user-association');
+        const getUserBugAssociation = require('../../../src/entities/bug/user-association');
         const actualUserAssociation = await getUserBugAssociation(otherUserBug, userEmail);
         const expectedUserAssociation = { isOther: true };
         assert.deepEqual(actualUserAssociation, expectedUserAssociation);
