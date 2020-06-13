@@ -1,7 +1,7 @@
-const { 
+const {
     getLoginURLHandler,
     authenticateGoogleUserHandler,
-    getAllowedUsersHandler, 
+    getAllowedUsersHandler,
 } = require('../handlers/user');
 const { validSessionMiddleware } = require('../middlewares/session-check');
 
