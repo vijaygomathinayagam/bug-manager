@@ -1,5 +1,4 @@
 const sinon = require('sinon');
-const userEntity = require('../../../src/entities/user');
 const htmlTemplateParser = require('../../../src/common/html-template-parser');
 const sessionStorage = require('../../../src/common/session');
 const {
@@ -15,6 +14,7 @@ const {
 const { authenticateGoogleUserHandler } = require('../../../src/handlers/user');
 
 describe('authenticateGoogleUserHandler method', async function() {
+    const userEntity = require('../../../src/entities/user');
 
     const expressReq = {
         query: {

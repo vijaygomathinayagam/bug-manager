@@ -1,5 +1,6 @@
-const allowedUsersList = require(`../../../resources/${process.env.Allowed_Users_Filename}`);
+const filename = process.env.Allowed_Users_Filename || 'allowed_users_dev.json';
+const allowedUsersList = require(`../../../resources/${filename}`);
 
-module.exports = async function() {
+module.exports = function() {
     return allowedUsersList;
 }
