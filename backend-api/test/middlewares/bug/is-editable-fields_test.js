@@ -31,7 +31,7 @@ describe("isEditableFieldsCheckMiddleware method", async function() {
             "isReportedByUser": ["actualBehaviour"],
             "isAssignedToUser": ["expectedBehaviour"],
         });
-        delete require.resolve('../../../src/middlewares/bug/is-editable-fields');
+        delete require.cache[require.resolve('../../../src/middlewares/bug/is-editable-fields')];
     });
 
     it("should return status 400 if bug objects contains non editable fields", async function() {
