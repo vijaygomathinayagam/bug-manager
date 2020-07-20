@@ -12,6 +12,7 @@
     "react-scripts": "3.4.1"
   },
   "scripts": {
+    "start-dev": "NODE_ENV=development npm start",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",

@@ -4,8 +4,8 @@ import { withRouter } from "react-router";
 import { Redirect } from "react-router-dom";
 
 import "./Login.css";
-import LoginStatusUtility from "../_common/LoginStatusUtility";
-import { GET_LOGIN_API_URL, BACKEND_API_HOST } from "../_common/constants";
+import LoginStatusUtility from "../../_common/LoginStatusUtility";
+import { GET_LOGIN_API_URL, BACKEND_API_HOST } from "../../_common/constants";
 
 class Login extends React.Component {
   static propTypes = {
@@ -18,20 +18,19 @@ class Login extends React.Component {
     this.refererLocation = this.props.location.state || {
       refererLocation: { pathname: "/app" },
     };
-    if(this.refererLocation.pathname === "/login") {
+    if (this.refererLocation.pathname === "/login") {
       this.refererLocation.pathname = "/app";
     }
     this.state = { loginURL: "" };
   }
 
   componentDidMount() {
-    console.log(GET_LOGIN_API_URL);
     // getting login URL
     fetch(GET_LOGIN_API_URL)
-      .then(res => res.json())
-      .then(result => {
+      .then((res) => res.json())
+      .then((result) => {
         this.setState({
-          loginURL: result.url
+          loginURL: result.url,
         });
       });
     // adding event listeners
@@ -63,10 +62,8 @@ class Login extends React.Component {
   }
 
   render() {
-    if(LoginStatusUtility.isLoggedIn()) {
-      return (
-        <Redirect to={this.refererLocation} />
-      );
+    if (LoginStatusUtility.isLoggedIn()) {
+      return <Redirect to={this.refererLocation} />;
     }
     return (
       <div className="login-container">
@@ -81,7 +78,12 @@ class Login extends React.Component {
             onClick={this.openLoginWindow.bind(this)}
           ></button>
         ) : (
-          <p className="singin-loading-message">Loading...</p>
+          <p
+            data-testid="google-signin-loading"
+            className="singin-loading-message"
+          >
+            Loading...
+          </p>
         )}
       </div>
     );

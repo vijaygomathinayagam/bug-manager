@@ -7,6 +7,7 @@ describe("getBug method", async function() {
     const validBugID = '12345';
     const invalidBugID = '23456';
     const serverErrorBugID = '34567';
+    const notFoundBugID = '456789'
     const serverErrorName = 'some error';
     const bug = getFakeValidBug();
     const { bugModel } = require('../../../../src/entities/bug/model');
@@ -15,7 +16,8 @@ describe("getBug method", async function() {
         sinon.stub(bugModel, 'findOne')
             .withArgs({ bugID: validBugID }).resolves(bug)
             .withArgs({ bugID: invalidBugID }).rejects({code: 'MODULE_NOT_FOUND'})
-            .withArgs({ bugID: serverErrorBugID }).rejects(serverErrorName);
+            .withArgs({ bugID: serverErrorBugID }).rejects(serverErrorName)
+            .withArgs({ bugID: notFoundBugID }).resolves(null);
         delete require.cache[require.resolve('../../../../src/entities/bug/get')];
     });
 
@@ -32,6 +34,15 @@ describe("getBug method", async function() {
     it("should return false as exists for invalid bug id", async function() {
         const getBug = require('../../../../src/entities/bug/get');
         const actualReturnValue = await getBug(invalidBugID);
+        const expectedReturnValue = {
+            exists: false,
+        };
+        assert.deepEqual(actualReturnValue, expectedReturnValue);
+    });
+
+    it("should return false as exists for not found bug", async function() {
+        const getBug = require('../../../../src/entities/bug/get');
+        const actualReturnValue = await getBug(notFoundBugID);
         const expectedReturnValue = {
             exists: false,
         };

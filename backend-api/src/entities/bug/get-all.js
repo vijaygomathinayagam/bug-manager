@@ -5,7 +5,7 @@ module.exports = async (filter) => {
     .find(filter)
     .limit(10)
     .sort({ createdAt: -1 })
-    .select({ bugId: 1, title: 1, reportedBy: 1, assignedBy: 1});
+    .select({ bugID: 1, title: 1, reportedBy: 1, assignedTo: 1});
 
   const totalCount = await bugModel.countDocuments();
 

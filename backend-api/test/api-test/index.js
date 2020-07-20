@@ -17,7 +17,6 @@ const callAllApis = async () => {
     await require('./get-user-associations-bug-editable-fields')();
 };
 
-
 const tearDown = async () => {
     await storage.closeConnections();
 };

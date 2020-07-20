@@ -38,7 +38,7 @@ describe("getAllBugs method", async function() {
         sinon.assert.calledOnce(bugModel.countDocuments);
         sinon.assert.calledWith(limitStub, 10);
         sinon.assert.calledWith(sortStub, { createdAt: -1 });
-        sinon.assert.calledWith(selectStub, { bugId: 1, title: 1, reportedBy: 1, assignedBy: 1});
+        sinon.assert.calledWith(selectStub, { bugID: 1, title: 1, reportedBy: 1, assignedTo: 1});
         assert.deepEqual(actualResponse, expectedResonse);
     });
 

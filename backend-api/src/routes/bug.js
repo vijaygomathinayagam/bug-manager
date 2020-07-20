@@ -19,14 +19,14 @@ module.exports = (apiRouter) => {
         wrapHandler(validSessionMiddleware),
         wrapHandler(getAllBugsHandler)
     );
-    apiRouter.get('/bugs/{:bugID}',
+    apiRouter.get('/bugs/:bugID',
         wrapHandler(validSessionMiddleware),
         wrapHandler(validBugIDCheckMiddleware),
         wrapHandler(getBugHandler)
     );
     apiRouter.post('/bugs',
         wrapHandler(validSessionMiddleware),
-        wrapHandler(validBugObjectCheckMiddleware), 
+        wrapHandler(validBugObjectCheckMiddleware),
         wrapHandler(createBugHandler)
     );
     apiRouter.put('/bugs',
@@ -34,7 +34,7 @@ module.exports = (apiRouter) => {
         wrapHandler(validBugIDCheckMiddleware),
         wrapHandler(editBugHandler)
     );
-    apiRouter.delete('/bugs/{:bugID}',
+    apiRouter.delete('/bugs/:bugID',
         wrapHandler(validSessionMiddleware),
         wrapHandler(validBugIDCheckMiddleware),
         wrapHandler(reportedByUserCheckMiddleware),

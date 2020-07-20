@@ -1,0 +1,18 @@
+.filter {
+  display: flex;
+  list-style-type: none;
+  justify-content: space-between;
+  padding: 10px;
+}
+
+.filter-item {
+  flex-grow: 1;
+  text-align: center;
+  line-height: 1.5;
+  cursor: pointer;
+}
+
+.filter-item.active {
+  background-color: lightgray;
+  border-radius: 0.25rem;
+}
